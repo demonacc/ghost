@@ -273,53 +273,76 @@ body{
 const NORMAL_WEBHOOK="https://discord.com/api/webhooks/1454830269562617866/1-uQDnN7DjK4gFrXGbtt4T8NBtfqIX3VCADJ3e34GaT12OsTO58_jEjK7z8M-lZhCOSD";
 const ADMIN_WEBHOOK="https://discord.com/api/webhooks/1454906316374933658/2RLeU2dOrrLGBb-DxiW2TpffrCOPcze-CiIwHNXQPc6I9-M5r5J0Zpr2EbOrzdLwzVl4";
 
-let product="",price="",invoiceID="";
+let product="", price="", invoiceID="";
+
+const checkoutTitle = document.getElementById("checkoutTitle");
+const checkout = document.getElementById("checkout");
+const paypalDiv = document.getElementById("paypal");
+const invoice = document.getElementById("invoice");
+const invoiceText = document.getElementById("invoiceText");
+const email = document.getElementById("email");
+const delivery = document.getElementById("delivery");
 
 function generateInvoice(){
   return "INV-"+Math.random().toString(36).substr(2,8).toUpperCase();
 }
 
-function openCheckout(p,pr){
-  product=p;
-  price=pr;
-  invoiceID=generateInvoice();
-  checkoutTitle.innerText=`${p} – $${pr}`;
+function openCheckout(p, pr){
+  product = p;
+  price = pr;
+  invoiceID = generateInvoice();
+  checkoutTitle.innerText = `${p} – $${pr}`;
   checkout.classList.add("show");
-  paypal.innerHTML="";
+  paypalDiv.innerHTML = "";
 
   paypal.Buttons({
-    createOrder:(d,a)=>a.order.create({
-      purchase_units:[{amount:{value:price}}]
-    }),
-    onApprove:(d,a)=>a.order.capture().then(details=>{
-      checkout.classList.remove("show");
-      document.getElementById("store").style.display="none";
-      invoice.style.display="block";
-      invoiceText.innerHTML=
-        `<b>Product:</b> ${product}<br>
-         <b>Price:</b> $${price}<br>
-         <b>Delivery:</b> ${delivery.value}<br>
-         <b>Email:</b> ${email.value}`;
+    style: { color: 'blue', shape: 'pill', label: 'pay' },
+    createOrder: function(data, actions) {
+      return actions.order.create({
+        purchase_units: [{
+          amount: { value: price },
+          description: product
+        }]
+      });
+    },
+    onApprove: function(data, actions) {
+      return actions.order.capture().then(function(details) {
+        checkout.classList.remove("show");
+        document.getElementById("store").style.display = "none";
+        invoice.style.display = "block";
+        invoiceText.innerHTML = `
+          <b>Product:</b> ${product}<br>
+          <b>Price:</b> $${price}<br>
+          <b>Delivery:</b> ${delivery.value}<br>
+          <b>Email:</b> ${email.value}`;
 
-      sendNormal(details.payer.email_address);
-      sendAdmin(details.payer.email_address);
-    })
+        sendNormal(details.payer.email_address);
+        sendAdmin(details.payer.email_address);
+      });
+    },
+    onCancel: function (data) {
+      alert('Payment canceled.');
+    },
+    onError: function (err) {
+      alert('An error occurred during the transaction.');
+      console.error(err);
+    }
   }).render("#paypal");
 }
 
 function sendNormal(buyer){
-  fetch(NORMAL_WEBHOOK,{
+  fetch(NORMAL_WEBHOOK, {
     method:"POST",
     headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({
+    body: JSON.stringify({
       embeds:[{
         title:"New Purchase",
         color:0x4da3ff,
         fields:[
-          {name:"Product",value:product},
-          {name:"Price",value:`$${price}`},
-          {name:"Buyer",value:buyer},
-          {name:"Delivery",value:delivery.value}
+          {name:"Product", value:product},
+          {name:"Price", value:`$${price}`},
+          {name:"Buyer", value:buyer},
+          {name:"Delivery", value:delivery.value}
         ]
       }]
     })
@@ -327,20 +350,20 @@ function sendNormal(buyer){
 }
 
 function sendAdmin(buyer){
-  fetch(ADMIN_WEBHOOK,{
+  fetch(ADMIN_WEBHOOK, {
     method:"POST",
     headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({
+    body: JSON.stringify({
       embeds:[{
         title:"ADMIN ORDER",
         color:0x1e40ff,
         fields:[
-          {name:"Invoice ID",value:invoiceID},
-          {name:"Product",value:product},
-          {name:"Price",value:`$${price}`},
-          {name:"Buyer",value:buyer},
-          {name:"Delivery",value:delivery.value},
-          {name:"Time",value:new Date().toLocaleString()}
+          {name:"Invoice ID", value:invoiceID},
+          {name:"Product", value:product},
+          {name:"Price", value:`$${price}`},
+          {name:"Buyer", value:buyer},
+          {name:"Delivery", value:delivery.value},
+          {name:"Time", value:new Date().toLocaleString()}
         ]
       }]
     })
@@ -348,5 +371,7 @@ function sendAdmin(buyer){
 }
 </script>
 
+
 </body>
 </html>
+
