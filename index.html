@@ -5,32 +5,31 @@
 <title>Demon Accounts</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
-<!-- PAYPAL (REAL READY) -->
+<!-- PAYPAL SDK (UNCHANGED SYSTEM) -->
 <script src="https://www.paypal.com/sdk/js?client-id=Abqeni29Ax1nQYeBcP8lEUsd__MoahXx8o65tgOoYHe3oJmq80vd7zJQ5cnrLPqdwUutGkpRfLZYPnHz&currency=USD"></script>
 
 <style>
 :root{
-  --bg:#0b0f1f;
-  --card:#11162a;
-  --glass:rgba(255,255,255,.08);
-  --border:rgba(255,255,255,.12);
-  --pink:#ff4ecd;
-  --blue:#4ea8ff;
-  --purple:#7c6cff;
-  --green:#2dff88;
+  --bg:#06060d;
+  --panel:#0c1020;
+  --card:#101530;
+  --accent:#7c6cff;
+  --accent2:#4ea8ff;
+  --accent3:#ff4ecd;
   --text:#ffffff;
-  --muted:#b7c0ff;
+  --muted:#aab1ff;
+  --border:rgba(255,255,255,.12);
 }
 
 *{margin:0;padding:0;box-sizing:border-box}
 body{
-  font-family:Inter,sans-serif;
+  font-family:Poppins,sans-serif;
   background:
-    radial-gradient(circle at 10% 10%,#1d1b4f,transparent 40%),
-    radial-gradient(circle at 90% 20%,#4f116f,transparent 40%),
-    linear-gradient(180deg,#050814,#0b0f1f);
+    radial-gradient(circle at 20% 20%,#1b1f5a,transparent 45%),
+    radial-gradient(circle at 80% 30%,#5a155a,transparent 45%),
+    linear-gradient(180deg,#03040a,#06060d);
   color:var(--text);
   min-height:100vh;
   overflow-x:hidden;
@@ -38,101 +37,159 @@ body{
 
 /* ===== HEADER ===== */
 header{
-  padding:40px 20px;
   text-align:center;
+  padding:60px 20px 30px;
 }
 header h1{
-  font-size:3rem;
-  background:linear-gradient(90deg,var(--pink),var(--blue),var(--green));
+  font-size:3.5rem;
+  background:linear-gradient(90deg,var(--accent3),var(--accent2),var(--accent));
   -webkit-background-clip:text;
   color:transparent;
 }
-header p{color:var(--muted);margin-top:10px}
+header p{
+  margin-top:10px;
+  color:var(--muted);
+}
 
-/* ===== STORE ===== */
+/* ===== PRODUCT GRID ===== */
 .store{
-  max-width:1100px;
+  max-width:1200px;
   margin:60px auto;
   padding:0 20px;
   display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
   gap:30px;
 }
+
 .product{
-  background:linear-gradient(180deg,var(--glass),transparent);
+  background:linear-gradient(180deg,rgba(255,255,255,.06),transparent);
   border:1px solid var(--border);
-  border-radius:18px;
-  padding:26px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  backdrop-filter:blur(20px);
-  transition:.35s;
+  border-radius:22px;
+  padding:28px;
+  position:relative;
+  overflow:hidden;
+  transition:.4s;
+}
+.product::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  background:linear-gradient(120deg,transparent,var(--accent),transparent);
+  opacity:.15;
 }
 .product:hover{
-  transform:translateY(-6px);
-  box-shadow:0 0 40px rgba(124,108,255,.35);
+  transform:translateY(-10px) scale(1.02);
+  box-shadow:0 0 60px rgba(124,108,255,.45);
 }
-.product img{width:64px}
-.price{font-size:1.4rem;font-weight:700}
+.product h3{
+  font-size:1.3rem;
+}
+.product small{
+  color:var(--muted);
+}
+.price{
+  font-size:2rem;
+  font-weight:700;
+  margin:20px 0;
+  background:linear-gradient(90deg,var(--accent2),var(--accent));
+  -webkit-background-clip:text;
+  color:transparent;
+}
 .buy{
-  background:linear-gradient(90deg,var(--blue),var(--purple));
-  color:#fff;
+  width:100%;
+  padding:14px;
   border:none;
-  padding:12px 18px;
-  border-radius:10px;
+  border-radius:14px;
+  font-size:1rem;
+  font-weight:600;
+  color:#fff;
   cursor:pointer;
+  background:linear-gradient(90deg,var(--accent3),var(--accent2));
+  transition:.3s;
+}
+.buy:hover{
+  box-shadow:0 0 25px rgba(255,78,205,.6);
 }
 
-/* ===== MODAL ===== */
+/* ===== CHECKOUT MODAL ===== */
 .modal{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.6);
+  background:rgba(0,0,0,.7);
   display:none;
   align-items:center;
   justify-content:center;
+  z-index:10;
 }
 .modal-box{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:30px;
   width:420px;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:30px;
+  animation:pop .4s ease;
+}
+@keyframes pop{
+  from{transform:scale(.8);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+.modal-box h2{
+  margin-bottom:15px;
 }
 input,select{
   width:100%;
-  padding:10px;
-  border-radius:8px;
-  border:none;
+  padding:12px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:#070a18;
+  color:#fff;
   margin-bottom:12px;
 }
 
 /* ===== INVOICE ===== */
 .invoice{
   display:none;
-  max-width:600px;
-  margin:80px auto;
+  max-width:620px;
+  margin:100px auto;
   background:var(--card);
-  border-radius:18px;
-  padding:30px;
+  border-radius:22px;
   border:1px solid var(--border);
+  padding:35px;
+  text-align:center;
+  animation:fade .6s;
 }
-.invoice h2{margin-bottom:14px}
+@keyframes fade{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:none}
+}
 .badge{
-  background:linear-gradient(90deg,var(--green),var(--blue));
-  padding:6px 10px;
+  display:inline-block;
+  padding:8px 14px;
   border-radius:20px;
-  font-size:.75rem;
+  background:linear-gradient(90deg,#2dff88,#4ea8ff);
+  color:#000;
+  font-weight:700;
+  margin-bottom:15px;
 }
 
 /* ===== ADMIN ===== */
 .admin{
   display:none;
-  padding:40px;
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:20px;
 }
 .admin button{
-  margin-top:10px;
-  padding:8px 12px;
+  width:100%;
+  padding:10px;
+  margin-top:8px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
 }
 </style>
 </head>
@@ -141,19 +198,32 @@ input,select{
 
 <header>
   <h1>Demon Accounts</h1>
-  <p>Secure · Animated · Premium Checkout</p>
+  <p>Instant Delivery · Secure Payments · Premium Accounts</p>
 </header>
 
 <section class="store" id="store">
+
   <div class="product">
-    <img src="assets/pick.png">
-    <div>
-      <strong>Fortnite Account</strong><br>
-      <small>Rare Pickaxes</small>
-    </div>
+    <h3>Fortnite Account</h3>
+    <small>Rare Pickaxes + Skins</small>
     <div class="price">$6.55</div>
-    <button class="buy" onclick="openCheckout('Fortnite Account','6.55')">Buy</button>
+    <button class="buy" onclick="openCheckout('Fortnite Account','6.55')">Purchase</button>
   </div>
+
+  <div class="product">
+    <h3>OG Fortnite Account</h3>
+    <small>Season 1–3 Exclusives</small>
+    <div class="price">$14.99</div>
+    <button class="buy" onclick="openCheckout('OG Fortnite Account','14.99')">Purchase</button>
+  </div>
+
+  <div class="product">
+    <h3>Stacked Fortnite Account</h3>
+    <small>150+ Skins · Max Cosmetics</small>
+    <div class="price">$29.99</div>
+    <button class="buy" onclick="openCheckout('Stacked Fortnite Account','29.99')">Purchase</button>
+  </div>
+
 </section>
 
 <!-- CHECKOUT -->
@@ -171,30 +241,31 @@ input,select{
 
 <!-- INVOICE -->
 <div class="invoice" id="invoice">
-  <span class="badge">PAID</span>
-  <h2>Invoice</h2>
+  <span class="badge">PAYMENT COMPLETE</span>
+  <h2>Thank You</h2>
   <p id="invoiceText"></p>
 </div>
 
 <!-- ADMIN -->
 <div class="admin" id="admin">
-  <h2>Admin Orders</h2>
+  <strong>Admin Panel</strong>
   <button onclick="adminAction('Refund')">Refund</button>
-  <button onclick="adminAction('Resend Delivery')">Resend Delivery</button>
+  <button onclick="adminAction('Resend')">Resend Delivery</button>
 </div>
 
 <script>
 let orderID="", product="", price="";
 
 function genOrder(){
-  return "DA-"+Math.random().toString(36).substr(2,8).toUpperCase();
+  return "DA-"+Math.random().toString(36).substr(2,9).toUpperCase();
 }
 
 function openCheckout(p,pr){
-  product=p;price=pr;orderID=genOrder();
-  checkoutTitle.innerText=`${p} – $${pr}`;
+  product=p; price=pr; orderID=genOrder();
+  checkoutTitle.innerText=`${p} — $${pr}`;
   checkout.style.display="flex";
   paypal.innerHTML="";
+
   paypal.Buttons({
     createOrder:(d,a)=>a.order.create({
       purchase_units:[{amount:{value:price}}]
@@ -203,7 +274,7 @@ function openCheckout(p,pr){
       checkout.style.display="none";
       store.style.display="none";
       invoice.style.display="block";
-      invoiceText.innerHTML=`Order ID: <b>${orderID}</b><br>Product: ${product}`;
+      invoiceText.innerHTML=`Order ID: <b>${orderID}</b><br>${product}`;
       logOrder();
     })
   }).render("#paypal");
