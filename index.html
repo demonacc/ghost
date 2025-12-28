@@ -2,164 +2,92 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Demon Accounts</title>
+<title>Demon Accounts v23</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;800&display=swap" rel="stylesheet">
 
-<script src="https://www.paypal.com/sdk/js?client-id=Abqeni29Ax1nQYeBcP8lEUsd__MoahXx8o65tgOoYHe3oJmq80vd7zJQ5cnrLPqdwUutGkpRfLZYPnHz&currency=USD&intent=capture"></script>
+<!-- PAYPAL SDK -->
+<script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD"></script>
 
 <style>
 :root{
-  --bg:#050a18;
-  --panel:#0b132b;
-  --panel-soft:#0f1b3d;
-  --border:#1d2a55;
-  --blue:#4da3ff;
-  --blue-glow:#2b7cff;
-  --text:#eaf0ff;
-  --muted:#8fa6ff;
+  --bg:#070712;
+  --panel:#0f1025;
+  --accent:#00ffd5;
+  --accent2:#ff2fa4;
+  --text:#ffffff;
+  --muted:#9aa0ff;
   --good:#4dffb3;
 }
 
-/* ================= GLOBAL ================= */
 *{margin:0;padding:0;box-sizing:border-box}
 body{
-  font-family:Inter,sans-serif;
-  background: radial-gradient(circle at top,#0b1b44,#050a18 60%);
+  font-family:'Orbitron',sans-serif;
+  background:radial-gradient(circle at top,#101030,#050510);
   color:var(--text);
-  min-height:100vh;
   overflow-x:hidden;
 }
 
-/* ================= NAV ================= */
-.nav{
-  position:fixed;
-  top:0;
-  width:100%;
-  z-index:50;
-  padding:18px 40px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  background:rgba(5,10,24,.8);
-  backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--border);
-}
-.brand{
-  font-size:1.6rem;
-  font-weight:900;
-  letter-spacing:1px;
-}
-.nav span{
-  color:var(--good);
-  font-size:.9rem;
-}
-
-/* ================= HERO ================= */
-.hero{
-  height:90vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+/* HEADER */
+header{
+  padding:60px 20px;
   text-align:center;
-  padding:120px 20px 0;
-  animation:fadeUp 1s ease;
 }
-.hero h1{
-  font-size:4rem;
-  font-weight:900;
-  background:linear-gradient(90deg,#4da3ff,#9ac7ff);
+header h1{
+  font-size:3.6rem;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
   -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
+  color:transparent;
+  text-shadow:0 0 30px var(--accent);
   animation:textGlow 2s infinite alternate;
 }
-.hero p{
-  max-width:700px;
-  margin:25px auto;
-  font-size:1.2rem;
+header p{
+  margin-top:15px;
   color:var(--muted);
 }
-.hero button{
-  margin-top:30px;
-  padding:18px 46px;
-  border:none;
-  border-radius:50px;
-  font-weight:800;
-  font-size:1rem;
-  cursor:pointer;
-  background:linear-gradient(90deg,var(--blue),var(--blue-glow));
-  color:#fff;
-  box-shadow:0 0 35px rgba(77,163,255,.6);
-  transition:.4s;
-}
-.hero button:hover{
-  transform:scale(1.05);
-  box-shadow:0 0 55px rgba(77,163,255,.8);
-}
 
-/* ================= STORE ================= */
-.store{
+/* GRID */
+.products{
   max-width:1200px;
-  margin:0 auto;
-  padding:120px 30px;
+  margin:60px auto;
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:40px;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:30px;
+  padding:20px;
 }
 
-.card{
-  position:relative;
-  background:linear-gradient(180deg,var(--panel-soft),var(--panel));
-  border:1px solid var(--border);
-  border-radius:24px;
-  padding:30px;
-  overflow:hidden;
+/* PRODUCT */
+.product{
+  background:linear-gradient(180deg,#12143a,#0b0d25);
+  border-radius:22px;
+  padding:25px;
+  text-align:center;
+  border:1px solid rgba(255,255,255,0.06);
+  transition:.4s;
+  box-shadow:0 0 40px rgba(0,0,0,.6);
   cursor:pointer;
-  transition:.4s ease, transform .5s ease;
 }
-.card:hover{
-  transform:translateY(-15px) scale(1.05);
-  box-shadow:0 30px 90px rgba(0,0,0,.7);
+.product:hover{
+  transform:translateY(-10px) scale(1.03);
+  box-shadow:0 0 60px var(--accent);
 }
-.card img{
-  width:70px;
-  display:block;
-  margin:auto;
-  transition:.4s ease;
+.product img{
+  width:110px;
+  margin-bottom:20px;
 }
-.card h3{
-  margin-top:20px;
-  font-size:1.4rem;
-  text-align:center;
-}
-.card p{
-  margin-top:6px;
-  color:var(--muted);
-  text-align:center;
+.product h3{
+  margin-bottom:10px;
 }
 .price{
-  margin:25px 0;
-  font-size:2rem;
-  font-weight:900;
-  color:var(--blue);
-  text-align:center;
+  color:var(--accent);
+  font-size:1.3rem;
+  margin-bottom:15px;
 }
-.card button{
-  display:block;
-  width:100%;
-  padding:16px;
-  border:none;
-  border-radius:14px;
-  background:linear-gradient(90deg,var(--blue),var(--blue-glow));
-  color:white;
-  font-weight:800;
-  cursor:pointer;
-  transition:.4s;
-}
-.card button:hover{
-  transform:scale(1.05);
-  filter:brightness(1.2);
+
+/* PAYPAL CONTAINER */
+.paypal-box{
+  margin-top:15px;
 }
 
 /* ================= CHECKOUT DRAWER ================= */
@@ -170,7 +98,7 @@ body{
   height:100vh;
   width:400px;
   background:linear-gradient(180deg,var(--panel),#060b22);
-  border-left:1px solid var(--border);
+  border-left:1px solid rgba(255,255,255,0.06);
   padding:40px 30px;
   transform:translateX(100%);
   transition:.5s cubic-bezier(.2,.8,.2,1);
@@ -189,14 +117,14 @@ body{
   padding:14px;
   margin-top:12px;
   border-radius:12px;
-  border:1px solid var(--border);
+  border:1px solid rgba(255,255,255,0.06);
   background:#070e2a;
   color:var(--text);
 }
 .checkout input:focus,
 .checkout select:focus{
   outline:none;
-  border-color:var(--blue);
+  border-color:var(--accent);
 }
 
 /* ================= RECEIPT ================= */
@@ -206,8 +134,8 @@ body{
   margin:120px auto;
   padding:40px;
   border-radius:26px;
-  background:linear-gradient(180deg,var(--panel),var(--panel-soft));
-  border:1px solid var(--border);
+  background:linear-gradient(180deg,var(--panel),#12143a);
+  border:1px solid rgba(255,255,255,0.06);
   animation:fadeUp .5s ease;
   text-align:center;
 }
@@ -228,45 +156,45 @@ body{
   to{opacity:1; transform:translateY(0);}
 }
 @keyframes textGlow{
-  from{text-shadow:0 0 10px #4da3ff;}
-  to{text-shadow:0 0 25px #9ac7ff;}
+  from{text-shadow:0 0 10px var(--accent);}
+  to{text-shadow:0 0 25px var(--accent2);}
 }
 </style>
 </head>
 
 <body>
 
-<div class="nav">
-  <div class="brand">Demon Accounts</div>
-  <span>● Online</span>
-</div>
+<header>
+  <h1>Demon Accounts</h1>
+  <p>Instant delivery · Secure PayPal checkout · Trusted payments</p>
+</header>
 
-<section class="hero">
-  <div>
-    <h1>Premium Game Accounts</h1>
-    <p>Instant delivery. Secure payments. Zero bullshit. Trusted by thousands.</p>
-    <button onclick="document.getElementById('store').scrollIntoView({behavior:'smooth'})">Browse Accounts</button>
-  </div>
-</section>
+<section class="products">
 
-<section class="store" id="store">
-  <div class="card">
+  <div class="product">
     <img src="assets/pick.png">
-    <h3>Fortnite Account</h3>
-    <p>Rare Pickaxes • Clean Email</p>
+    <h3>Fortnite Accounts [PICAXES]</h3>
     <div class="price">$6.55</div>
-    <button onclick="openCheckout('Fortnite Account','6.55')">Buy Now</button>
+    <div class="paypal-box" onclick="openCheckout('Fortnite Accounts [PICAXES]', '6.55')"></div>
   </div>
 
-  <div class="card">
+  <div class="product">
     <img src="assets/val.png">
     <h3>Valorant Account</h3>
-    <p>Ranked Ready • Full Access</p>
     <div class="price">$19.99</div>
-    <button onclick="openCheckout('Valorant Account','19.99')">Buy Now</button>
+    <div class="paypal-box" onclick="openCheckout('Valorant Account', '19.99')"></div>
   </div>
+
+  <div class="product">
+    <img src="assets/skin.png">
+    <h3>30+ Skin Account</h3>
+    <div class="price">$0.01</div>
+    <div class="paypal-box" onclick="openCheckout('30+ Skin Account', '0.01')"></div>
+  </div>
+
 </section>
 
+<!-- CHECKOUT DRAWER -->
 <div class="checkout" id="checkout">
   <h2 id="checkoutTitle"></h2>
   <input id="email" placeholder="Delivery Email">
@@ -277,6 +205,7 @@ body{
   <div id="paypal" style="margin-top:25px;"></div>
 </div>
 
+<!-- RECEIPT -->
 <div class="receipt" id="invoice">
   <span class="badge">PAYMENT CONFIRMED</span>
   <h2>Receipt</h2>
@@ -310,19 +239,16 @@ function openCheckout(p, pr){
   paypalDiv.innerHTML = "";
 
   paypal.Buttons({
-    style: { color: 'blue', shape: 'pill', label: 'pay' },
-    createOrder: function(data, actions) {
+    style:{layout:'vertical',color:'blue',shape:'pill',label:'paypal'},
+    createOrder:(data, actions)=>{
       return actions.order.create({
-        purchase_units: [{
-          amount: { value: price },
-          description: product
-        }]
+        purchase_units:[{description:product, amount:{value:price}}]
       });
     },
-    onApprove: function(data, actions) {
-      return actions.order.capture().then(function(details) {
+    onApprove:(data, actions)=>{
+      return actions.order.capture().then(details=>{
         checkout.classList.remove("show");
-        document.getElementById("store").style.display = "none";
+        document.querySelector('.products').style.display = "none";
         invoice.style.display = "block";
         invoiceText.innerHTML = `
           <b>Product:</b> ${product}<br>
@@ -330,42 +256,39 @@ function openCheckout(p, pr){
           <b>Delivery:</b> ${delivery.value}<br>
           <b>Email:</b> ${email.value}`;
 
-        sendNormal(details.payer.email_address);
-        sendAdmin(details.payer.email_address);
+        sendWebhook(details.payer.email_address);
       });
     },
-    onCancel: function(data) { alert('Payment canceled.'); },
-    onError: function(err) { alert('Payment error'); console.error(err); }
+    onCancel:()=>alert('Payment canceled.'),
+    onError:(err)=>{alert('Payment error'); console.error(err);}
   }).render("#paypal");
 }
 
-function sendNormal(buyer){
-  fetch(NORMAL_WEBHOOK, {
+function sendWebhook(buyer){
+  fetch(NORMAL_WEBHOOK,{
     method:"POST",
     headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({
+    body:JSON.stringify({
       embeds:[{
-        title:"New Purchase",
-        color:0x4da3ff,
+        title:"💰 PayPal Order",
+        color:0x00ffd5,
         fields:[
           {name:"Product", value:product},
           {name:"Price", value:`$${price}`},
           {name:"Buyer", value:buyer},
-          {name:"Delivery", value:delivery.value}
+          {name:"Delivery", value:delivery.value},
+          {name:"Invoice", value:invoiceID}
         ]
       }]
     })
   });
-}
-
-function sendAdmin(buyer){
-  fetch(ADMIN_WEBHOOK, {
+  fetch(ADMIN_WEBHOOK,{
     method:"POST",
     headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({
+    body:JSON.stringify({
       embeds:[{
         title:"ADMIN ORDER",
-        color:0x1e40ff,
+        color:0xff2fa4,
         fields:[
           {name:"Invoice ID", value:invoiceID},
           {name:"Product", value:product},
