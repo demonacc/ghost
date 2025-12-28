@@ -5,200 +5,254 @@
 <title>Demon Accounts</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
 
 <script src="https://www.paypal.com/sdk/js?client-id=Abqeni29Ax1nQYeBcP8lEUsd__MoahXx8o65tgOoYHe3oJmq80vd7zJQ5cnrLPqdwUutGkpRfLZYPnHz&currency=USD&intent=capture"></script>
 
 <style>
-/* ================= COLOR SYSTEM ================= */
 :root{
-  --bg:#0b0f16;
-  --panel:#121826;
-  --panel-2:#161d30;
-  --border:#242c44;
-  --text:#e6e9f2;
-  --muted:#9aa3bf;
-  --accent:#5f7ea8;      /* bluish steel */
-  --accent-2:#8b4a5a;    /* muted red */
-  --good:#5fa88a;
+  --bg:#050a18;
+  --panel:#0b132b;
+  --panel-soft:#0f1b3d;
+  --border:#1d2a55;
+  --blue:#4da3ff;
+  --blue-glow:#2b7cff;
+  --text:#eaf0ff;
+  --muted:#8fa6ff;
+  --good:#4dffb3;
 }
 
-/* ================= BASE ================= */
 *{margin:0;padding:0;box-sizing:border-box}
+
 body{
   font-family:Inter,sans-serif;
-  background:linear-gradient(180deg,#090c13,var(--bg));
+  background:
+    radial-gradient(circle at top,#0b1b44,#050a18 60%);
   color:var(--text);
   min-height:100vh;
+  overflow-x:hidden;
 }
 
-/* ================= TOP BAR ================= */
-.topbar{
-  position:sticky;
+/* ================= NAV ================= */
+.nav{
+  position:fixed;
   top:0;
-  z-index:10;
-  background:rgba(11,15,22,.85);
-  backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--border);
-  padding:18px 26px;
+  width:100%;
+  z-index:50;
+  padding:18px 40px;
   display:flex;
   justify-content:space-between;
   align-items:center;
+  background:rgba(5,10,24,.6);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
 }
-.logo{
-  font-size:1.5rem;
+.brand{
+  font-size:1.6rem;
   font-weight:900;
-  color:var(--text);
-  letter-spacing:.5px;
+  letter-spacing:1px;
 }
-.status{
-  font-size:.85rem;
+.nav span{
   color:var(--good);
+  font-size:.9rem;
+}
+
+/* ================= HERO ================= */
+.hero{
+  height:90vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:120px 20px 0;
+}
+.hero h1{
+  font-size:4rem;
+  font-weight:900;
+  background:linear-gradient(90deg,#4da3ff,#9ac7ff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.hero p{
+  max-width:700px;
+  margin:25px auto;
+  font-size:1.2rem;
+  color:var(--muted);
+}
+.hero button{
+  margin-top:30px;
+  padding:18px 46px;
+  border:none;
+  border-radius:50px;
+  font-weight:800;
+  font-size:1rem;
+  cursor:pointer;
+  background:linear-gradient(90deg,var(--blue),var(--blue-glow));
+  color:#fff;
+  box-shadow:0 0 35px rgba(77,163,255,.6);
+  transition:.3s;
+}
+.hero button:hover{
+  transform:scale(1.05);
 }
 
 /* ================= STORE ================= */
 .store{
-  max-width:1100px;
-  margin:60px auto;
-  padding:20px;
+  max-width:1200px;
+  margin:0 auto;
+  padding:120px 30px;
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:28px;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:40px;
 }
 
-.product{
-  background:linear-gradient(180deg,var(--panel),var(--panel-2));
+.card{
+  position:relative;
+  background:linear-gradient(180deg,var(--panel),var(--panel-soft));
   border:1px solid var(--border);
-  border-radius:18px;
-  padding:24px;
-  transition:.35s ease;
+  border-radius:24px;
+  padding:30px;
+  overflow:hidden;
+  transition:.4s ease;
 }
-.product:hover{
-  transform:translateY(-6px);
-  box-shadow:0 18px 45px rgba(0,0,0,.45);
+.card::before{
+  content:"";
+  position:absolute;
+  inset:-1px;
+  background:linear-gradient(120deg,transparent,var(--blue),transparent);
+  opacity:.15;
+}
+.card:hover{
+  transform:translateY(-12px) scale(1.02);
+  box-shadow:0 30px 80px rgba(0,0,0,.6);
 }
 
-.product img{
-  width:52px;
-  opacity:.9;
+.card img{
+  width:60px;
 }
-.product h3{
-  margin-top:14px;
-  font-size:1.15rem;
+.card h3{
+  margin-top:20px;
+  font-size:1.3rem;
 }
-.product span{
+.card p{
+  margin-top:6px;
   color:var(--muted);
-  font-size:.9rem;
 }
-
 .price{
-  margin:18px 0;
-  font-size:1.8rem;
+  margin:25px 0;
+  font-size:2.2rem;
   font-weight:900;
-  color:var(--accent);
+  color:var(--blue);
 }
 
-.buy{
+.card button{
   width:100%;
-  padding:14px;
+  padding:16px;
   border:none;
-  border-radius:12px;
-  background:linear-gradient(90deg,var(--accent),var(--accent-2));
-  color:#fff;
-  font-weight:700;
+  border-radius:14px;
+  background:linear-gradient(90deg,var(--blue),var(--blue-glow));
+  color:white;
+  font-weight:800;
   cursor:pointer;
-  transition:.25s;
+  transition:.3s;
 }
-.buy:hover{
-  filter:brightness(1.1);
+.card button:hover{
+  filter:brightness(1.15);
 }
 
-/* ================= CHECKOUT ================= */
+/* ================= CHECKOUT DRAWER ================= */
 .checkout{
   position:fixed;
-  bottom:0;
-  left:0;
-  width:100%;
-  background:var(--panel);
-  border-top:1px solid var(--border);
-  padding:26px;
-  transform:translateY(100%);
-  transition:.4s ease;
-  z-index:20;
+  right:0;
+  top:0;
+  height:100vh;
+  width:420px;
+  background:linear-gradient(180deg,var(--panel),#060b22);
+  border-left:1px solid var(--border);
+  padding:40px;
+  transform:translateX(100%);
+  transition:.5s cubic-bezier(.2,.8,.2,1);
+  z-index:100;
 }
 .checkout.show{transform:none}
 
 .checkout h2{
-  margin-bottom:14px;
-  font-size:1.2rem;
+  font-size:1.6rem;
+  margin-bottom:10px;
 }
 .checkout input,
 .checkout select{
   width:100%;
-  padding:13px;
-  margin-bottom:12px;
-  border-radius:10px;
+  padding:14px;
+  margin-top:12px;
+  border-radius:12px;
   border:1px solid var(--border);
-  background:var(--panel-2);
+  background:#070e2a;
   color:var(--text);
 }
 
-/* ================= INVOICE ================= */
-.invoice{
+/* ================= RECEIPT ================= */
+.receipt{
   display:none;
   max-width:600px;
-  margin:80px auto;
-  background:var(--panel);
+  margin:120px auto;
+  padding:40px;
+  border-radius:26px;
+  background:linear-gradient(180deg,var(--panel),var(--panel-soft));
   border:1px solid var(--border);
-  border-radius:18px;
-  padding:30px;
-  animation:fade .4s ease;
+  animation:fade .5s ease;
 }
 @keyframes fade{
-  from{opacity:0;transform:translateY(10px)}
+  from{opacity:0;transform:translateY(20px)}
   to{opacity:1}
 }
 .badge{
   display:inline-block;
   background:var(--good);
-  color:#0b0f16;
-  padding:6px 14px;
-  border-radius:16px;
-  font-size:.75rem;
-  font-weight:800;
-  margin-bottom:12px;
+  color:#02140b;
+  padding:8px 18px;
+  border-radius:20px;
+  font-weight:900;
+  margin-bottom:14px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- TOP BAR -->
-<div class="topbar">
-  <div class="logo">Demon Accounts</div>
-  <div class="status">● Online</div>
+<div class="nav">
+  <div class="brand">Demon Accounts</div>
+  <span>● Online</span>
 </div>
 
-<!-- STORE -->
-<section class="store" id="store">
-  <div class="product">
-    <img src="assets/pick.png">
-    <h3>Fortnite Account</h3>
-    <span>Rare Pickaxes</span>
-    <div class="price">$6.55</div>
-    <button class="buy" onclick="openCheckout('Fortnite Account','6.55')">Purchase</button>
-  </div>
-
-  <div class="product">
-    <img src="assets/val.png">
-    <h3>Valorant Account</h3>
-    <span>Ranked Ready</span>
-    <div class="price">$19.99</div>
-    <button class="buy" onclick="openCheckout('Valorant Account','19.99')">Purchase</button>
+<section class="hero">
+  <div>
+    <h1>Premium Game Accounts</h1>
+    <p>Instant delivery. Secure payments. Zero bullshit. Trusted by thousands.</p>
+    <button onclick="document.getElementById('store').scrollIntoView({behavior:'smooth'})">
+      Browse Accounts
+    </button>
   </div>
 </section>
 
-<!-- CHECKOUT -->
+<section class="store" id="store">
+  <div class="card">
+    <img src="assets/pick.png">
+    <h3>Fortnite Account</h3>
+    <p>Rare Pickaxes • Clean Email</p>
+    <div class="price">$6.55</div>
+    <button onclick="openCheckout('Fortnite Account','6.55')">Buy Now</button>
+  </div>
+
+  <div class="card">
+    <img src="assets/val.png">
+    <h3>Valorant Account</h3>
+    <p>Ranked Ready • Full Access</p>
+    <div class="price">$19.99</div>
+    <button onclick="openCheckout('Valorant Account','19.99')">Buy Now</button>
+  </div>
+</section>
+
 <div class="checkout" id="checkout">
   <h2 id="checkoutTitle"></h2>
   <input id="email" placeholder="Delivery Email">
@@ -206,11 +260,10 @@ body{
     <option>Email Delivery</option>
     <option>Discord Delivery</option>
   </select>
-  <div id="paypal"></div>
+  <div id="paypal" style="margin-top:20px"></div>
 </div>
 
-<!-- INVOICE -->
-<div class="invoice" id="invoice">
+<div class="receipt" id="invoice">
   <span class="badge">PAYMENT CONFIRMED</span>
   <h2>Receipt</h2>
   <p id="invoiceText"></p>
@@ -230,7 +283,6 @@ function openCheckout(p,pr){
   product=p;
   price=pr;
   invoiceID=generateInvoice();
-
   checkoutTitle.innerText=`${p} – $${pr}`;
   checkout.classList.add("show");
   paypal.innerHTML="";
@@ -241,9 +293,8 @@ function openCheckout(p,pr){
     }),
     onApprove:(d,a)=>a.order.capture().then(details=>{
       checkout.classList.remove("show");
-      store.style.display="none";
+      document.getElementById("store").style.display="none";
       invoice.style.display="block";
-
       invoiceText.innerHTML=
         `<b>Product:</b> ${product}<br>
          <b>Price:</b> $${price}<br>
@@ -256,7 +307,6 @@ function openCheckout(p,pr){
   }).render("#paypal");
 }
 
-/* NORMAL RECEIPT (NO INVOICE ID) */
 function sendNormal(buyer){
   fetch(NORMAL_WEBHOOK,{
     method:"POST",
@@ -264,7 +314,7 @@ function sendNormal(buyer){
     body:JSON.stringify({
       embeds:[{
         title:"New Purchase",
-        color:0x5f7ea8,
+        color:0x4da3ff,
         fields:[
           {name:"Product",value:product},
           {name:"Price",value:`$${price}`},
@@ -276,7 +326,6 @@ function sendNormal(buyer){
   });
 }
 
-/* ADMIN RECEIPT (WITH INVOICE ID) */
 function sendAdmin(buyer){
   fetch(ADMIN_WEBHOOK,{
     method:"POST",
@@ -284,7 +333,7 @@ function sendAdmin(buyer){
     body:JSON.stringify({
       embeds:[{
         title:"ADMIN ORDER",
-        color:0x8b4a5a,
+        color:0x1e40ff,
         fields:[
           {name:"Invoice ID",value:invoiceID},
           {name:"Product",value:product},
