@@ -2,124 +2,204 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Demon Accounts v22</title>
+<title>Demon Accounts v23</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 
 <!-- PAYPAL SDK -->
 <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD"></script>
 
 <style>
 :root{
-  --bg:#070712;
-  --panel:#0f1025;
-  --accent:#00ffd5;
-  --accent2:#ff2fa4;
+  --bg:#05050f;
+  --glass:rgba(20,25,70,.45);
+  --border:rgba(255,255,255,.08);
+  --cyan:#00ffe1;
+  --pink:#ff3cac;
+  --purple:#7b6cff;
   --text:#ffffff;
-  --muted:#9aa0ff;
+  --muted:#a0a4ff;
 }
 
 *{margin:0;padding:0;box-sizing:border-box}
 body{
   font-family:'Orbitron',sans-serif;
-  background:radial-gradient(circle at top,#101030,#050510);
+  background:
+    radial-gradient(circle at 20% 20%,#1b1f6a 0%,transparent 40%),
+    radial-gradient(circle at 80% 10%,#5b0fff 0%,transparent 40%),
+    radial-gradient(circle at bottom,#020215 30%,#05050f 80%);
   color:var(--text);
+  min-height:100vh;
   overflow-x:hidden;
 }
 
-/* HEADER */
-header{
-  padding:60px 20px;
+/* ===== HERO ===== */
+.hero{
+  padding:90px 20px 60px;
   text-align:center;
 }
-header h1{
-  font-size:3.6rem;
-  background:linear-gradient(90deg,var(--accent),var(--accent2));
+.hero h1{
+  font-size:4rem;
+  font-weight:900;
+  background:linear-gradient(90deg,var(--cyan),var(--pink),var(--purple));
   -webkit-background-clip:text;
   color:transparent;
-  text-shadow:0 0 30px var(--accent);
+  text-shadow:0 0 40px var(--cyan);
 }
-header p{
-  margin-top:15px;
+.hero p{
+  margin-top:18px;
   color:var(--muted);
+  letter-spacing:.08em;
 }
 
-/* GRID */
-.products{
-  max-width:1200px;
-  margin:60px auto;
+/* ===== PRODUCT GRID ===== */
+.store{
+  max-width:1300px;
+  margin:auto;
+  padding:40px 20px 80px;
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:30px;
-  padding:20px;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:40px;
 }
 
-/* PRODUCT */
-.product{
-  background:linear-gradient(180deg,#12143a,#0b0d25);
+/* ===== PRODUCT CARD ===== */
+.card{
+  position:relative;
+  background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(0,0,0,.35));
+  backdrop-filter:blur(20px);
+  border-radius:26px;
+  padding:30px 25px 35px;
+  border:1px solid var(--border);
+  box-shadow:0 0 60px rgba(0,0,0,.7);
+  transition:.45s ease;
+  overflow:hidden;
+}
+.card::before{
+  content:'';
+  position:absolute;
+  inset:-1px;
+  border-radius:26px;
+  background:linear-gradient(120deg,transparent,rgba(255,255,255,.18),transparent);
+  opacity:.4;
+  pointer-events:none;
+}
+.card:hover{
+  transform:translateY(-12px) scale(1.04);
+  box-shadow:0 0 80px var(--cyan);
+}
+
+/* ===== ICON ===== */
+.icon-wrap{
+  width:120px;
+  height:120px;
+  margin:10px auto 25px;
   border-radius:22px;
-  padding:25px;
+  background:linear-gradient(135deg,#0ff,#f0f);
+  padding:3px;
+}
+.icon{
+  width:100%;
+  height:100%;
+  border-radius:20px;
+  background:#0b0d22;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.icon img{
+  width:70px;
+  filter:drop-shadow(0 0 12px var(--cyan));
+}
+
+/* ===== TEXT ===== */
+.card h3{
   text-align:center;
-  border:1px solid rgba(255,255,255,0.06);
-  transition:.4s;
-  box-shadow:0 0 40px rgba(0,0,0,.6);
-}
-.product:hover{
-  transform:translateY(-10px) scale(1.03);
-  box-shadow:0 0 60px var(--accent);
-}
-.product img{
-  width:110px;
-  margin-bottom:20px;
-}
-.product h3{
+  font-size:1.25rem;
   margin-bottom:10px;
 }
+.card .desc{
+  text-align:center;
+  color:var(--muted);
+  font-size:.85rem;
+  margin-bottom:18px;
+}
 .price{
-  color:var(--accent);
-  font-size:1.3rem;
-  margin-bottom:15px;
+  text-align:center;
+  font-size:1.6rem;
+  font-weight:700;
+  color:var(--cyan);
+  margin-bottom:22px;
+  text-shadow:0 0 20px var(--cyan);
 }
 
-/* PAYPAL CONTAINER */
+/* ===== PAYPAL ===== */
 .paypal-box{
-  margin-top:15px;
+  display:flex;
+  justify-content:center;
+}
+
+/* ===== FOOTER ===== */
+footer{
+  text-align:center;
+  padding:35px 15px;
+  color:var(--muted);
+  font-size:.75rem;
+  border-top:1px solid var(--border);
 }
 </style>
 </head>
 
 <body>
 
-<header>
-  <h1>Demon Accounts</h1>
-  <p>Instant delivery · Secure PayPal checkout · Trusted payments</p>
-</header>
+<section class="hero">
+  <h1>DEMON ACCOUNTS</h1>
+  <p>INSTANT DELIVERY · PAYPAL PROTECTED · AUTOMATED CHECKOUT</p>
+</section>
 
-<section class="products">
+<section class="store">
 
-  <div class="product">
-    <img src="assets/pick.png">
-    <h3>Fortnite Accounts [PICAXES]</h3>
+  <div class="card">
+    <div class="icon-wrap">
+      <div class="icon">
+        <img src="assets/pick.png">
+      </div>
+    </div>
+    <h3>Fortnite Accounts</h3>
+    <div class="desc">Exclusive Pickaxe Collection</div>
     <div class="price">$6.55</div>
     <div id="paypal-1" class="paypal-box"></div>
   </div>
 
-  <div class="product">
-    <img src="assets/val.png">
+  <div class="card">
+    <div class="icon-wrap">
+      <div class="icon">
+        <img src="assets/val.png">
+      </div>
+    </div>
     <h3>Valorant Account</h3>
+    <div class="desc">High-rank ready inventory</div>
     <div class="price">$19.99</div>
     <div id="paypal-2" class="paypal-box"></div>
   </div>
 
-  <div class="product">
-    <img src="assets/skin.png">
+  <div class="card">
+    <div class="icon-wrap">
+      <div class="icon">
+        <img src="assets/skin.png">
+      </div>
+    </div>
     <h3>30+ Skin Account</h3>
+    <div class="desc">Budget friendly premium skins</div>
     <div class="price">$2.99</div>
     <div id="paypal-3" class="paypal-box"></div>
   </div>
 
 </section>
+
+<footer>
+  © Demon Accounts · Payments secured by PayPal
+</footer>
 
 <script>
 function paypalButton(id, price, name){
@@ -151,19 +231,18 @@ paypalButton('#paypal-1','6.55','Fortnite Accounts [PICAXES]');
 paypalButton('#paypal-2','19.99','Valorant Account');
 paypalButton('#paypal-3','2.99','30+ Skin Account');
 
-// WEBHOOK (optional logging)
 function sendWebhook(product, price, email){
   fetch("https://discord.com/api/webhooks/1454830269562617866/1-uQDnN7DjK4gFrXGbtt4T8NBtfqIX3VCADJ3e34GaT12OsTO58_jEjK7z8M-lZhCOSD",{
     method:"POST",
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify({
       embeds:[{
-        title:"💰 PayPal Order",
-        color:0x00ffd5,
+        title:"💰 New PayPal Order",
+        color:0x00ffe1,
         fields:[
           {name:"Product",value:product},
           {name:"Price",value:`$${price}`},
-          {name:"Buyer",value:email}
+          {name:"Buyer Email",value:email}
         ]
       }]
     })
@@ -173,7 +252,3 @@ function sendWebhook(product, price, email){
 
 </body>
 </html>
-
-
-
-
