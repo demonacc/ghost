@@ -153,7 +153,7 @@ paypalButton('#paypal-3','4.99','30+ Skin Account');
 
 // WEBHOOK (optional logging)
 function sendWebhook(product, price, email){
-  fetch("YOUR_DISCORD_WEBHOOK",{
+  fetch("https://discord.com/api/webhooks/1454830269562617866/1-uQDnN7DjK4gFrXGbtt4T8NBtfqIX3VCADJ3e34GaT12OsTO58_jEjK7z8M-lZhCOSD",{
     method:"POST",
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify({
@@ -173,3 +173,4 @@ function sendWebhook(product, price, email){
 
 </body>
 </html>
+
