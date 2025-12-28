@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Demon Accounts v25</title>
+<title>Demon Accounts - Premium Gaming Accounts</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
 <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD"></script>
 
 <style>
@@ -15,201 +15,601 @@
   --panel2:#0f1033;
   --accent:#4da3ff;
   --accent2:#2b7cff;
+  --accent3:#1a5fb8;
   --text:#ffffff;
   --muted:#9aa0ff;
   --shadow:rgba(77,163,255,.2);
+  --glow:#00d4ff;
 }
 
-/* RESET */
 *{margin:0;padding:0;box-sizing:border-box}
 body{
-  font-family:'Orbitron',sans-serif;
+  font-family:'Rajdhani',sans-serif;
   background:
-    linear-gradient(180deg,#0a0a1e,#05050f),
-    repeating-linear-gradient(0deg,transparent,transparent 30px,rgba(77,163,255,0.05) 30px,rgba(77,163,255,0.05) 31px),
-    repeating-linear-gradient(90deg,transparent,transparent 30px,rgba(77,163,255,0.05) 30px,rgba(77,163,255,0.05) 31px);
+    radial-gradient(ellipse at top, #1a1a3e 0%, #0a0a1e 50%),
+    repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(77,163,255,0.03) 2px,rgba(77,163,255,0.03) 4px);
   color:var(--text);
   overflow-x:hidden;
+  min-height:100vh;
+  position:relative;
 }
 
-/* HEADER */
-header{
+/* Animated background particles */
+.particles{
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  pointer-events:none;
+  z-index:0;
+}
+.particle{
+  position:absolute;
+  width:3px;
+  height:3px;
+  background:var(--accent);
+  border-radius:50%;
+  opacity:0;
+  animation:float 8s infinite;
+}
+@keyframes float{
+  0%{transform:translateY(100vh) translateX(0); opacity:0;}
+  10%{opacity:.5;}
+  90%{opacity:.5;}
+  100%{transform:translateY(-100vh) translateX(100px); opacity:0;}
+}
+
+/* Hero section */
+.hero{
+  position:relative;
   text-align:center;
-  padding:80px 20px 40px;
+  padding:120px 20px 60px;
+  overflow:hidden;
 }
-header h1{
-  font-size:3.8rem;
-  background:linear-gradient(90deg,var(--accent),var(--accent2));
+.hero::before{
+  content:'';
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:600px;
+  height:600px;
+  background:radial-gradient(circle, rgba(77,163,255,0.15) 0%, transparent 70%);
+  animation:pulse 4s ease-in-out infinite;
+}
+@keyframes pulse{
+  0%,100%{transform:translate(-50%,-50%) scale(1); opacity:.3;}
+  50%{transform:translate(-50%,-50%) scale(1.2); opacity:.6;}
+}
+
+.hero h1{
+  position:relative;
+  font-family:'Orbitron',sans-serif;
+  font-size:5rem;
+  font-weight:900;
+  background:linear-gradient(135deg,var(--glow),var(--accent),var(--accent2));
   -webkit-background-clip:text;
-  color:transparent;
-  text-shadow:0 0 20px var(--accent);
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  text-shadow:0 0 40px rgba(77,163,255,0.5);
+  animation:slideDown .8s ease;
+  letter-spacing:3px;
 }
-header p{
-  margin-top:15px;
+@keyframes slideDown{
+  from{opacity:0; transform:translateY(-50px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+.hero .tagline{
+  position:relative;
+  margin-top:20px;
+  color:var(--muted);
+  font-size:1.4rem;
+  animation:slideUp .8s ease .2s both;
+  letter-spacing:1px;
+}
+@keyframes slideUp{
+  from{opacity:0; transform:translateY(30px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+.hero .features{
+  position:relative;
+  display:flex;
+  justify-content:center;
+  gap:40px;
+  margin-top:40px;
+  animation:slideUp .8s ease .4s both;
+}
+.feature-badge{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px 24px;
+  background:rgba(77,163,255,0.1);
+  border:1px solid rgba(77,163,255,0.3);
+  border-radius:50px;
+  font-size:1rem;
+  font-weight:700;
+  backdrop-filter:blur(10px);
+  transition:.3s;
+}
+.feature-badge:hover{
+  background:rgba(77,163,255,0.2);
+  border-color:var(--accent);
+  transform:translateY(-3px);
+}
+.feature-icon{
+  width:24px;
+  height:24px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:14px;
+}
+
+/* Stats bar */
+.stats-bar{
+  max-width:1200px;
+  margin:40px auto;
+  padding:0 20px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:30px;
+  animation:slideUp .8s ease .6s both;
+}
+.stat{
+  text-align:center;
+  padding:30px;
+  background:linear-gradient(135deg,rgba(77,163,255,0.08),rgba(43,124,255,0.05));
+  border:1px solid rgba(77,163,255,0.2);
+  border-radius:20px;
+  backdrop-filter:blur(10px);
+  transition:.4s;
+  position:relative;
+  overflow:hidden;
+}
+.stat::before{
+  content:'';
+  position:absolute;
+  top:0;left:-100%;
+  width:100%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(77,163,255,0.1),transparent);
+  transition:.6s;
+}
+.stat:hover::before{left:100%;}
+.stat:hover{
+  transform:translateY(-5px);
+  border-color:var(--accent);
+}
+.stat-number{
+  font-size:2.5rem;
+  font-weight:900;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  font-family:'Orbitron',sans-serif;
+}
+.stat-label{
+  margin-top:8px;
+  color:var(--muted);
+  font-size:1.1rem;
+  font-weight:600;
+}
+
+/* Section header */
+.section-header{
+  text-align:center;
+  margin:80px auto 50px;
+  animation:slideUp .8s ease;
+}
+.section-header h2{
+  font-family:'Orbitron',sans-serif;
+  font-size:3rem;
+  font-weight:800;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  margin-bottom:15px;
+}
+.section-header p{
   color:var(--muted);
   font-size:1.2rem;
 }
 
-/* PRODUCT GRID */
+/* Products */
 .products{
   max-width:1400px;
-  margin:0 auto 80px;
+  margin:0 auto 100px;
   display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:30px;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:35px;
   padding:0 20px;
 }
 
-/* PRODUCT CARD */
 .product{
-  background:linear-gradient(180deg,var(--panel),var(--panel2));
-  border-radius:20px;
-  padding:25px;
+  background:linear-gradient(135deg,var(--panel),var(--panel2));
+  border-radius:24px;
+  padding:30px;
   text-align:center;
-  border:1px solid rgba(255,255,255,.06);
-  box-shadow:0 0 20px var(--shadow);
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:0 8px 32px rgba(0,0,0,.3);
+  transition:.5s cubic-bezier(.2,.8,.2,1);
+  position:relative;
+  overflow:hidden;
+  animation:fadeIn .6s ease forwards;
+  opacity:0;
+}
+.product:nth-child(1){animation-delay:.1s;}
+.product:nth-child(2){animation-delay:.2s;}
+.product:nth-child(3){animation-delay:.3s;}
+.product:nth-child(4){animation-delay:.4s;}
+@keyframes fadeIn{
+  to{opacity:1;}
+}
+
+.product::before{
+  content:'';
+  position:absolute;
+  top:-50%;left:-50%;
+  width:200%;height:200%;
+  background:radial-gradient(circle,rgba(77,163,255,0.1) 0%,transparent 70%);
+  opacity:0;
   transition:.5s;
 }
+.product:hover::before{
+  opacity:1;
+  animation:rotate 8s linear infinite;
+}
+@keyframes rotate{
+  to{transform:rotate(360deg);}
+}
+
 .product:hover{
-  transform:translateY(-10px) scale(1.03);
-  box-shadow:0 0 50px var(--accent2);
+  transform:translateY(-15px) scale(1.02);
+  box-shadow:0 20px 60px rgba(77,163,255,0.4), 0 0 40px rgba(77,163,255,0.2);
+  border-color:var(--accent);
+}
+
+.product-img-wrapper{
+  position:relative;
+  width:120px;
+  height:120px;
+  margin:0 auto 25px;
+  background:linear-gradient(135deg,rgba(77,163,255,0.1),rgba(43,124,255,0.05));
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:.5s;
+}
+.product:hover .product-img-wrapper{
+  transform:scale(1.1) rotate(5deg);
+  box-shadow:0 0 30px rgba(77,163,255,0.5);
 }
 .product img{
-  width:100px;
-  margin-bottom:20px;
+  width:80px;
+  height:80px;
+  object-fit:contain;
+  filter:drop-shadow(0 0 10px rgba(77,163,255,0.3));
 }
+
 .product h3{
-  font-size:1.4rem;
-  margin-bottom:8px;
+  position:relative;
+  font-size:1.5rem;
+  font-weight:700;
+  margin-bottom:12px;
+  color:var(--text);
+}
+.product-desc{
+  color:var(--muted);
+  font-size:.95rem;
+  margin-bottom:20px;
+  line-height:1.5;
 }
 .price{
+  position:relative;
   color:var(--accent);
-  font-size:1.3rem;
-  margin-bottom:15px;
+  font-size:2rem;
+  font-weight:900;
+  font-family:'Orbitron',sans-serif;
+  margin-bottom:20px;
+  text-shadow:0 0 20px rgba(77,163,255,0.5);
 }
 .buy-btn{
-  padding:12px 28px;
+  position:relative;
+  padding:14px 36px;
   border:none;
   border-radius:50px;
   font-weight:800;
-  font-size:1rem;
+  font-size:1.1rem;
   cursor:pointer;
-  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
   color:#000;
-  box-shadow:0 0 20px var(--accent);
-  transition:.3s;
+  box-shadow:0 4px 20px rgba(77,163,255,0.4);
+  transition:.4s;
+  overflow:hidden;
+  font-family:'Rajdhani',sans-serif;
+  letter-spacing:1px;
+}
+.buy-btn::before{
+  content:'';
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:0;height:0;
+  background:rgba(255,255,255,0.3);
+  border-radius:50%;
+  transition:.5s;
+}
+.buy-btn:hover::before{
+  width:300px;
+  height:300px;
 }
 .buy-btn:hover{
   transform:scale(1.05);
-  box-shadow:0 0 35px var(--accent2);
+  box-shadow:0 6px 30px rgba(77,163,255,0.6);
+}
+.buy-btn:active{
+  transform:scale(.98);
 }
 
-/* CHECKOUT DRAWER */
+/* Checkout panel */
 .checkout{
   position:fixed;
   top:0; right:0;
-  width:420px;
+  width:450px;
   height:100vh;
-  background:linear-gradient(180deg,var(--panel),#060b22);
-  border-left:1px solid rgba(255,255,255,.06);
-  padding:40px 30px;
+  background:linear-gradient(180deg,rgba(16,16,51,0.98),rgba(6,11,34,0.98));
+  backdrop-filter:blur(20px);
+  border-left:1px solid rgba(77,163,255,0.3);
+  padding:50px 35px;
   transform:translateX(100%);
-  transition:.5s cubic-bezier(.2,.8,.2,1);
+  transition:.6s cubic-bezier(.2,.8,.2,1);
   z-index:100;
   overflow-y:auto;
+  box-shadow:-10px 0 50px rgba(0,0,0,0.5);
 }
-.checkout.show{transform:none}
+.checkout.show{transform:none;}
+.checkout-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:30px;
+}
 .checkout h2{
+  font-family:'Orbitron',sans-serif;
   font-size:1.8rem;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.close-btn{
+  width:40px;
+  height:40px;
+  border:none;
+  background:rgba(255,255,255,0.1);
+  color:var(--text);
+  border-radius:50%;
+  cursor:pointer;
+  font-size:1.5rem;
+  transition:.3s;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.close-btn:hover{
+  background:rgba(255,77,77,0.3);
+  transform:rotate(90deg);
+}
+.checkout-product{
+  padding:20px;
+  background:rgba(77,163,255,0.05);
+  border:1px solid rgba(77,163,255,0.2);
+  border-radius:16px;
+  margin-bottom:25px;
+}
+.checkout-product h3{
+  font-size:1.3rem;
+  margin-bottom:10px;
+}
+.checkout-product .price{
+  font-size:1.8rem;
+  margin-bottom:0;
+}
+.form-group{
   margin-bottom:20px;
-  text-align:center;
+}
+.form-group label{
+  display:block;
+  margin-bottom:8px;
+  color:var(--muted);
+  font-weight:600;
+  font-size:.95rem;
 }
 .checkout input,
 .checkout select{
   width:100%;
-  padding:14px;
-  margin-top:12px;
+  padding:16px;
   border-radius:12px;
-  border:1px solid rgba(255,255,255,.06);
-  background:#070e2a;
+  border:1px solid rgba(77,163,255,0.2);
+  background:rgba(7,14,42,0.8);
   color:var(--text);
+  font-size:1rem;
+  font-family:'Rajdhani',sans-serif;
+  transition:.3s;
 }
 .checkout input:focus,
-.checkout select:focus{outline:none; border-color:var(--accent);}
+.checkout select:focus{
+  outline:none;
+  border-color:var(--accent);
+  box-shadow:0 0 20px rgba(77,163,255,0.2);
+}
 
-/* RECEIPT */
+/* Receipt */
 .receipt{
   display:none;
-  max-width:600px;
+  max-width:650px;
   margin:120px auto;
-  padding:40px;
-  border-radius:26px;
-  background:linear-gradient(180deg,var(--panel),var(--panel2));
-  border:1px solid rgba(255,255,255,0.06);
-  animation:fadeUp .5s ease;
+  padding:50px;
+  border-radius:30px;
+  background:linear-gradient(135deg,var(--panel),var(--panel2));
+  border:2px solid var(--accent);
+  animation:receiptAppear .6s ease;
   text-align:center;
+  box-shadow:0 20px 60px rgba(77,163,255,0.3);
+}
+@keyframes receiptAppear{
+  from{opacity:0; transform:translateY(50px) scale(.9);}
+  to{opacity:1; transform:translateY(0) scale(1);}
 }
 .badge{
   display:inline-block;
-  background:var(--accent);
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
   color:#000;
-  padding:8px 18px;
-  border-radius:20px;
+  padding:12px 28px;
+  border-radius:30px;
   font-weight:900;
-  margin-bottom:14px;
-  font-size:.9rem;
+  margin-bottom:20px;
+  font-size:1rem;
+  box-shadow:0 4px 20px rgba(77,163,255,0.4);
+  animation:badgePulse 2s ease infinite;
+}
+@keyframes badgePulse{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.05);}
+}
+.receipt h2{
+  font-family:'Orbitron',sans-serif;
+  font-size:2.5rem;
+  margin-bottom:25px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.receipt p{
+  font-size:1.2rem;
+  line-height:2;
+  color:var(--muted);
 }
 
-/* ANIMATIONS */
-@keyframes fadeUp{
-  from{opacity:0; transform:translateY(30px);}
-  to{opacity:1; transform:translateY(0);}
+/* Responsive */
+@media(max-width:1200px){
+  .products{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:768px){
+  .hero h1{font-size:3rem;}
+  .hero .features{flex-direction:column; align-items:center;}
+  .stats-bar{grid-template-columns:1fr;}
+  .products{grid-template-columns:1fr;}
+  .checkout{width:100%; border-left:none;}
 }
 </style>
 </head>
 <body>
 
-<header>
-  <h1>Demon Accounts</h1>
-  <p>Instant delivery · Secure PayPal checkout · Trusted payments</p>
-</header>
+<!-- Particles -->
+<div class="particles" id="particles"></div>
 
-<section class="products" id="productGrid">
-  <!-- Products injected here -->
+<!-- Hero -->
+<section class="hero">
+  <h1>DEMON ACCOUNTS</h1>
+  <p class="tagline">Premium Gaming Accounts • Instant Delivery • Secure Checkout</p>
+  <div class="features">
+    <div class="feature-badge">
+      <div class="feature-icon">⚡</div>
+      <span>Instant Delivery</span>
+    </div>
+    <div class="feature-badge">
+      <div class="feature-icon">🔒</div>
+      <span>Secure PayPal</span>
+    </div>
+    <div class="feature-badge">
+      <div class="feature-icon">✓</div>
+      <span>Trusted Service</span>
+    </div>
+  </div>
 </section>
 
-<div class="checkout" id="checkout">
-  <h2 id="checkoutTitle">Checkout</h2>
-  <input id="email" placeholder="Delivery Email">
-  <select id="delivery">
-    <option>Email Delivery</option>
-    <option>Discord Delivery</option>
-  </select>
-  <div id="paypal" style="margin-top:25px;"></div>
+<!-- Stats -->
+<div class="stats-bar">
+  <div class="stat">
+    <div class="stat-number">1,247+</div>
+    <div class="stat-label">Happy Customers</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">24/7</div>
+    <div class="stat-label">Support Available</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">99.9%</div>
+    <div class="stat-label">Success Rate</div>
+  </div>
 </div>
 
+<!-- Section Header -->
+<div class="section-header">
+  <h2>PREMIUM STORE</h2>
+  <p>Select your account and checkout securely</p>
+</div>
+
+<!-- Products -->
+<section class="products" id="productGrid"></section>
+
+<!-- Checkout -->
+<div class="checkout" id="checkout">
+  <div class="checkout-header">
+    <h2 id="checkoutTitle">Checkout</h2>
+    <button class="close-btn" onclick="closeCheckout()">×</button>
+  </div>
+  <div class="checkout-product" id="checkoutProduct"></div>
+  <div class="form-group">
+    <label>Delivery Email</label>
+    <input id="email" type="email" placeholder="your@email.com" required>
+  </div>
+  <div class="form-group">
+    <label>Delivery Method</label>
+    <select id="delivery">
+      <option>Email Delivery</option>
+      <option>Discord Delivery</option>
+    </select>
+  </div>
+  <div id="paypal" style="margin-top:30px;"></div>
+</div>
+
+<!-- Receipt -->
 <div class="receipt" id="invoice">
-  <span class="badge">PAYMENT CONFIRMED</span>
-  <h2>Receipt</h2>
+  <span class="badge">✓ PAYMENT CONFIRMED</span>
+  <h2>Order Complete</h2>
   <p id="invoiceText"></p>
 </div>
 
 <script>
-// PRODUCTS
+// Create particles
+const particlesContainer = document.getElementById('particles');
+for(let i=0; i<30; i++){
+  const p = document.createElement('div');
+  p.classList.add('particle');
+  p.style.left = Math.random()*100+'%';
+  p.style.animationDelay = Math.random()*8+'s';
+  p.style.animationDuration = (5+Math.random()*5)+'s';
+  particlesContainer.appendChild(p);
+}
+
 const products = [
-  {name:"Fortnite Accounts [PICAXES]", price:"6.55", img:"assets/pick.png"},
-  {name:"Valorant Account", price:"19.99", img:"assets/val.png"},
-  {name:"30+ Skin Account", price:"2.99", img:"assets/skin.png"}
+  {name:"Fortnite Accounts [PICAXES]", price:"6.55", img:"assets/pick.png", desc:"Rare pickaxe collection with exclusive skins"},
+  {name:"Valorant Account", price:"19.99", img:"assets/val.png", desc:"Full access account with premium agents"},
+  {name:"30+ Skin Account", price:"2.99", img:"assets/skin.png", desc:"Packed with 30+ premium skins"},
+  {name:"Apex Legends Bundle", price:"14.99", img:"assets/pick.png", desc:"Legendary skins and heirlooms included"}
 ];
 
-// WEBHOOKS
 const NORMAL_WEBHOOK="https://discord.com/api/webhooks/1454830269562617866/1-uQDnN7DjK4gFrXGbtt4T8NBtfqIX3VCADJ3e34GaT12OsTO58_jEjK7z8M-lZhCOSD";
 const ADMIN_WEBHOOK="https://discord.com/api/webhooks/1454906316374933658/2RLeU2dOrrLGBb-DxiW2TpffrCOPcze-CiIwHNXQPc6I9-M5r5J0Zpr2EbOrzdLwzVl4";
 
-// DOM
 const productGrid = document.getElementById("productGrid");
 const checkoutTitle = document.getElementById("checkoutTitle");
 const checkout = document.getElementById("checkout");
+const checkoutProduct = document.getElementById("checkoutProduct");
 const paypalDiv = document.getElementById("paypal");
 const invoice = document.getElementById("invoice");
 const invoiceText = document.getElementById("invoiceText");
@@ -220,24 +620,27 @@ let product="", price="", invoiceID="";
 
 function generateInvoice(){ return "INV-"+Math.random().toString(36).substr(2,8).toUpperCase(); }
 
-// RENDER PRODUCTS
 products.forEach((p)=>{
   const card = document.createElement("div");
   card.classList.add("product");
   card.innerHTML=`
-    <img src="${p.img}">
+    <div class="product-img-wrapper">
+      <img src="${p.img}" alt="${p.name}">
+    </div>
     <h3>${p.name}</h3>
+    <p class="product-desc">${p.desc}</p>
     <div class="price">$${p.price}</div>
-    <button class="buy-btn" onclick="openCheckout('${p.name}','${p.price}')">Purchase</button>
+    <button class="buy-btn" onclick="openCheckout('${p.name}','${p.price}')">Purchase Now</button>
   `;
   productGrid.appendChild(card);
 });
 
-// OPEN CHECKOUT
 function openCheckout(p, pr){
   product=p; price=pr; invoiceID=generateInvoice();
-  checkoutTitle.innerText=`${p} – $${pr}`;
+  checkoutTitle.innerText="Secure Checkout";
+  checkoutProduct.innerHTML=`<h3>${p}</h3><div class="price">$${pr}</div>`;
   checkout.classList.add("show");
+  document.body.style.overflow='hidden';
   paypalDiv.innerHTML="";
 
   paypal.Buttons({
@@ -246,20 +649,29 @@ function openCheckout(p, pr){
     onApprove:(data, actions)=>actions.order.capture().then(details=>{
       checkout.classList.remove("show");
       productGrid.style.display="none";
+      document.querySelector('.hero').style.display='none';
+      document.querySelector('.stats-bar').style.display='none';
+      document.querySelector('.section-header').style.display='none';
       invoice.style.display="block";
+      document.body.style.overflow='auto';
       invoiceText.innerHTML=`
         <b>Product:</b> ${product}<br>
-        <b>Price:</b> $${price}<br>
-        <b>Delivery:</b> ${delivery.value}<br>
-        <b>Email:</b> ${email.value}`;
+        <b>Amount Paid:</b> $${price}<br>
+        <b>Delivery Method:</b> ${delivery.value}<br>
+        <b>Email:</b> ${email.value}<br>
+        <b>Invoice ID:</b> ${invoiceID}`;
       sendWebhook(details.payer.email_address);
     }),
-    onCancel:()=>alert('Payment canceled.'),
-    onError:(err)=>{alert('Payment error'); console.error(err);}
+    onCancel:()=>{alert('Payment canceled.'); document.body.style.overflow='auto';},
+    onError:(err)=>{alert('Payment error'); console.error(err); document.body.style.overflow='auto';}
   }).render("#paypal");
 }
 
-// SEND WEBHOOK
+function closeCheckout(){
+  checkout.classList.remove("show");
+  document.body.style.overflow='auto';
+}
+
 function sendWebhook(buyer){
   fetch(NORMAL_WEBHOOK,{
     method:"POST",
@@ -297,4 +709,3 @@ function sendWebhook(buyer){
 
 </body>
 </html>
-
