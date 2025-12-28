@@ -5,40 +5,40 @@
 <title>Demon Accounts</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
 
 <script src="https://www.paypal.com/sdk/js?client-id=Abqeni29Ax1nQYeBcP8lEUsd__MoahXx8o65tgOoYHe3oJmq80vd7zJQ5cnrLPqdwUutGkpRfLZYPnHz&currency=USD&intent=capture"></script>
 
 <style>
+/* ================= COLOR SYSTEM ================= */
 :root{
-  --bg:#06070d;
-  --panel:#0c1020;
-  --glass:rgba(255,255,255,.08);
-  --border:rgba(255,255,255,.14);
-  --accent:#6cf3ff;
-  --accent2:#ff4ecd;
-  --good:#2dff88;
-  --text:#fff;
-  --muted:#9aa4ff;
+  --bg:#0b0f16;
+  --panel:#121826;
+  --panel-2:#161d30;
+  --border:#242c44;
+  --text:#e6e9f2;
+  --muted:#9aa3bf;
+  --accent:#5f7ea8;      /* bluish steel */
+  --accent-2:#8b4a5a;    /* muted red */
+  --good:#5fa88a;
 }
 
+/* ================= BASE ================= */
 *{margin:0;padding:0;box-sizing:border-box}
 body{
-  font-family:Manrope,sans-serif;
-  background:
-    radial-gradient(circle at top,#1a2a6c,transparent 40%),
-    linear-gradient(180deg,#05070c,var(--bg));
+  font-family:Inter,sans-serif;
+  background:linear-gradient(180deg,#090c13,var(--bg));
   color:var(--text);
   min-height:100vh;
 }
 
-/* TOP BAR */
+/* ================= TOP BAR ================= */
 .topbar{
   position:sticky;
   top:0;
   z-index:10;
-  background:rgba(6,7,13,.75);
-  backdrop-filter:blur(18px);
+  background:rgba(11,15,22,.85);
+  backdrop-filter:blur(14px);
   border-bottom:1px solid var(--border);
   padding:18px 26px;
   display:flex;
@@ -46,80 +46,74 @@ body{
   align-items:center;
 }
 .logo{
-  font-size:1.6rem;
+  font-size:1.5rem;
   font-weight:900;
-  background:linear-gradient(90deg,var(--accent),var(--accent2));
-  -webkit-background-clip:text;
-  color:transparent;
+  color:var(--text);
+  letter-spacing:.5px;
 }
 .status{
+  font-size:.85rem;
   color:var(--good);
-  font-weight:700;
-  font-size:.9rem;
 }
 
-/* STORE */
+/* ================= STORE ================= */
 .store{
   max-width:1100px;
-  margin:50px auto;
+  margin:60px auto;
   padding:20px;
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:30px;
+  gap:28px;
 }
+
 .product{
-  position:relative;
-  background:linear-gradient(180deg,rgba(255,255,255,.1),transparent);
+  background:linear-gradient(180deg,var(--panel),var(--panel-2));
   border:1px solid var(--border);
-  border-radius:26px;
-  padding:26px;
-  transition:.45s;
-  overflow:hidden;
-}
-.product::after{
-  content:"";
-  position:absolute;
-  inset:-1px;
-  background:linear-gradient(120deg,transparent,rgba(255,255,255,.3),transparent);
-  opacity:0;
-  transition:.45s;
+  border-radius:18px;
+  padding:24px;
+  transition:.35s ease;
 }
 .product:hover{
-  transform:translateY(-12px) scale(1.03);
-  box-shadow:0 30px 90px rgba(108,243,255,.4);
+  transform:translateY(-6px);
+  box-shadow:0 18px 45px rgba(0,0,0,.45);
 }
-.product:hover::after{opacity:1}
 
-.product img{width:60px}
-.product h3{margin:12px 0 4px}
-.product span{color:var(--muted);font-size:.9rem}
+.product img{
+  width:52px;
+  opacity:.9;
+}
+.product h3{
+  margin-top:14px;
+  font-size:1.15rem;
+}
+.product span{
+  color:var(--muted);
+  font-size:.9rem;
+}
 
 .price{
   margin:18px 0;
-  font-size:2rem;
+  font-size:1.8rem;
   font-weight:900;
-  background:linear-gradient(90deg,var(--good),var(--accent));
-  -webkit-background-clip:text;
-  color:transparent;
+  color:var(--accent);
 }
 
 .buy{
   width:100%;
-  padding:15px;
+  padding:14px;
   border:none;
-  border-radius:16px;
-  font-weight:900;
+  border-radius:12px;
+  background:linear-gradient(90deg,var(--accent),var(--accent-2));
+  color:#fff;
+  font-weight:700;
   cursor:pointer;
-  background:linear-gradient(90deg,var(--accent),var(--accent2));
-  color:#000;
-  transition:.3s;
+  transition:.25s;
 }
 .buy:hover{
-  box-shadow:0 0 45px rgba(255,78,205,.6);
-  transform:scale(1.05);
+  filter:brightness(1.1);
 }
 
-/* CHECKOUT */
+/* ================= CHECKOUT ================= */
 .checkout{
   position:fixed;
   bottom:0;
@@ -127,58 +121,65 @@ body{
   width:100%;
   background:var(--panel);
   border-top:1px solid var(--border);
-  padding:28px;
+  padding:26px;
   transform:translateY(100%);
-  transition:.5s;
+  transition:.4s ease;
   z-index:20;
 }
 .checkout.show{transform:none}
 
-.checkout h2{margin-bottom:14px}
-.checkout input,select{
+.checkout h2{
+  margin-bottom:14px;
+  font-size:1.2rem;
+}
+.checkout input,
+.checkout select{
   width:100%;
-  padding:14px;
-  border-radius:14px;
-  border:none;
-  background:#070a18;
-  color:#fff;
+  padding:13px;
   margin-bottom:12px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:var(--panel-2);
+  color:var(--text);
 }
 
-/* INVOICE SCREEN */
+/* ================= INVOICE ================= */
 .invoice{
   display:none;
   max-width:600px;
   margin:80px auto;
   background:var(--panel);
   border:1px solid var(--border);
-  border-radius:26px;
+  border-radius:18px;
   padding:30px;
-  animation:fadeUp .6s ease;
+  animation:fade .4s ease;
 }
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(20px)}
+@keyframes fade{
+  from{opacity:0;transform:translateY(10px)}
   to{opacity:1}
 }
 .badge{
   display:inline-block;
-  background:linear-gradient(90deg,var(--good),var(--accent));
+  background:var(--good);
+  color:#0b0f16;
   padding:6px 14px;
-  border-radius:20px;
+  border-radius:16px;
   font-size:.75rem;
-  font-weight:900;
-  margin-bottom:10px;
+  font-weight:800;
+  margin-bottom:12px;
 }
 </style>
 </head>
 
 <body>
 
+<!-- TOP BAR -->
 <div class="topbar">
   <div class="logo">Demon Accounts</div>
   <div class="status">● Online</div>
 </div>
 
+<!-- STORE -->
 <section class="store" id="store">
   <div class="product">
     <img src="assets/pick.png">
@@ -210,7 +211,7 @@ body{
 
 <!-- INVOICE -->
 <div class="invoice" id="invoice">
-  <span class="badge">PAYMENT SUCCESSFUL</span>
+  <span class="badge">PAYMENT CONFIRMED</span>
   <h2>Receipt</h2>
   <p id="invoiceText"></p>
 </div>
@@ -221,12 +222,15 @@ const ADMIN_WEBHOOK="https://discord.com/api/webhooks/1454906316374933658/2RLeU2
 
 let product="",price="",invoiceID="";
 
-function genInvoice(){
+function generateInvoice(){
   return "INV-"+Math.random().toString(36).substr(2,8).toUpperCase();
 }
 
 function openCheckout(p,pr){
-  product=p; price=pr; invoiceID=genInvoice();
+  product=p;
+  price=pr;
+  invoiceID=generateInvoice();
+
   checkoutTitle.innerText=`${p} – $${pr}`;
   checkout.classList.add("show");
   paypal.innerHTML="";
@@ -259,8 +263,8 @@ function sendNormal(buyer){
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify({
       embeds:[{
-        title:"🛒 New Purchase",
-        color:0x6cf3ff,
+        title:"New Purchase",
+        color:0x5f7ea8,
         fields:[
           {name:"Product",value:product},
           {name:"Price",value:`$${price}`},
@@ -279,8 +283,8 @@ function sendAdmin(buyer){
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify({
       embeds:[{
-        title:"🔐 ADMIN ORDER LOG",
-        color:0xff4ecd,
+        title:"ADMIN ORDER",
+        color:0x8b4a5a,
         fields:[
           {name:"Invoice ID",value:invoiceID},
           {name:"Product",value:product},
