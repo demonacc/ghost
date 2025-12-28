@@ -5,109 +5,130 @@
 <title>Demon Accounts</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <!-- PAYPAL SDK -->
 <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD"></script>
 
 <style>
 :root{
-  --bg:#0f1117;
-  --panel:#161a23;
-  --card:#1c2130;
-  --border:#2a3042;
-  --primary:#4f7cff;
-  --text:#ffffff;
-  --muted:#aab0c5;
+  --bg:#f5f6fa;
+  --panel:#ffffff;
+  --border:#e5e7ef;
+  --text:#111827;
+  --muted:#6b7280;
+  --primary:#2563eb;
 }
 
 *{margin:0;padding:0;box-sizing:border-box}
 
 body{
   font-family:'Inter',sans-serif;
-  background:linear-gradient(180deg,#0f1117,#0b0d12);
+  background:var(--bg);
   color:var(--text);
 }
 
 /* ===== HEADER ===== */
 header{
+  background:#ffffff;
+  border-bottom:1px solid var(--border);
+}
+.header-inner{
   max-width:1200px;
   margin:auto;
-  padding:70px 20px 40px;
+  padding:28px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.logo{
+  font-size:1.4rem;
+  font-weight:700;
+}
+.badge{
+  font-size:.75rem;
+  padding:6px 10px;
+  background:#ecfdf5;
+  color:#065f46;
+  border-radius:20px;
+  font-weight:600;
+}
+
+/* ===== STORE ===== */
+.store{
+  max-width:1200px;
+  margin:50px auto 90px;
+  padding:0 20px;
+  display:flex;
+  flex-direction:column;
+  gap:40px;
+}
+
+/* ===== PRODUCT ROW ===== */
+.item{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:28px;
+  display:grid;
+  grid-template-columns:1fr 320px;
+  gap:30px;
+}
+
+/* LEFT */
+.item-info{
+  display:flex;
+  gap:20px;
+}
+.item-info img{
+  width:80px;
+  height:80px;
+  object-fit:contain;
+}
+.item-info h3{
+  font-size:1.15rem;
+  margin-bottom:6px;
+}
+.item-info p{
+  font-size:.9rem;
+  color:var(--muted);
+}
+.features{
+  margin-top:14px;
+  font-size:.85rem;
+  color:var(--muted);
+  line-height:1.6;
+}
+
+/* RIGHT */
+.checkout{
+  border-left:1px solid var(--border);
+  padding-left:26px;
   display:flex;
   flex-direction:column;
   gap:14px;
 }
-header h1{
-  font-size:2.8rem;
-  font-weight:700;
-}
-header p{
-  color:var(--muted);
-  max-width:500px;
-}
-
-/* ===== STORE GRID ===== */
-.products{
-  max-width:1200px;
-  margin:auto;
-  padding:40px 20px 80px;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:26px;
-}
-
-/* ===== PRODUCT CARD ===== */
-.product{
-  background:var(--card);
-  border-radius:14px;
-  padding:26px 24px 28px;
-  border:1px solid var(--border);
-  transition:.25s ease;
-}
-.product:hover{
-  transform:translateY(-4px);
-  box-shadow:0 10px 30px rgba(0,0,0,.4);
-}
-
-/* IMAGE */
-.product img{
-  width:72px;
-  height:72px;
-  object-fit:contain;
-  margin-bottom:18px;
-}
-
-/* TEXT */
-.product h3{
-  font-size:1.1rem;
-  font-weight:600;
-  margin-bottom:6px;
-}
-.product .desc{
-  font-size:.85rem;
-  color:var(--muted);
-  margin-bottom:16px;
-}
 .price{
-  font-size:1.4rem;
+  font-size:1.6rem;
   font-weight:700;
-  margin-bottom:18px;
+}
+.secure{
+  font-size:.75rem;
+  color:var(--muted);
 }
 
 /* PAYPAL */
 .paypal-box{
-  display:flex;
-  justify-content:flex-start;
+  margin-top:8px;
 }
 
-/* FOOTER */
+/* ===== FOOTER ===== */
 footer{
-  border-top:1px solid var(--border);
-  padding:28px 20px;
   text-align:center;
   font-size:.8rem;
   color:var(--muted);
+  padding:30px 20px;
+  border-top:1px solid var(--border);
 }
 </style>
 </head>
@@ -115,40 +136,81 @@ footer{
 <body>
 
 <header>
-  <h1>Demon Accounts</h1>
-  <p>Secure digital goods marketplace with instant PayPal checkout.</p>
+  <div class="header-inner">
+    <div class="logo">Demon Accounts</div>
+    <div class="badge">PayPal Protected</div>
+  </div>
 </header>
 
-<section class="products">
+<section class="store">
 
-  <div class="product">
-    <img src="assets/pick.png">
-    <h3>Fortnite Account</h3>
-    <div class="desc">Includes rare pickaxes</div>
-    <div class="price">$6.55</div>
-    <div id="paypal-1" class="paypal-box"></div>
+  <!-- PRODUCT 1 -->
+  <div class="item">
+    <div class="item-info">
+      <img src="assets/pick.png">
+      <div>
+        <h3>Fortnite Account – Pickaxe Bundle</h3>
+        <p>Preloaded Fortnite account with exclusive cosmetic items.</p>
+        <div class="features">
+          • Instant delivery after payment<br>
+          • Email access included<br>
+          • Full ownership transfer
+        </div>
+      </div>
+    </div>
+    <div class="checkout">
+      <div class="price">$6.55</div>
+      <div id="paypal-1" class="paypal-box"></div>
+      <div class="secure">Payments handled securely by PayPal</div>
+    </div>
   </div>
 
-  <div class="product">
-    <img src="assets/val.png">
-    <h3>Valorant Account</h3>
-    <div class="desc">Ready-to-play ranked account</div>
-    <div class="price">$19.99</div>
-    <div id="paypal-2" class="paypal-box"></div>
+  <!-- PRODUCT 2 -->
+  <div class="item">
+    <div class="item-info">
+      <img src="assets/val.png">
+      <div>
+        <h3>Valorant Account</h3>
+        <p>Ranked-ready Valorant account with clean history.</p>
+        <div class="features">
+          • Secure delivery<br>
+          • No bans or restrictions<br>
+          • Full login details provided
+        </div>
+      </div>
+    </div>
+    <div class="checkout">
+      <div class="price">$19.99</div>
+      <div id="paypal-2" class="paypal-box"></div>
+      <div class="secure">Payments handled securely by PayPal</div>
+    </div>
   </div>
 
-  <div class="product">
-    <img src="assets/skin.png">
-    <h3>30+ Skin Account</h3>
-    <div class="desc">Affordable cosmetic bundle</div>
-    <div class="price">$2.99</div>
-    <div id="paypal-3" class="paypal-box"></div>
+  <!-- PRODUCT 3 -->
+  <div class="item">
+    <div class="item-info">
+      <img src="assets/skin.png">
+      <div>
+        <h3>30+ Skin Account</h3>
+        <p>Affordable account with a large cosmetic inventory.</p>
+        <div class="features">
+          • Budget-friendly<br>
+          • Immediate access<br>
+          • Perfect starter account
+        </div>
+      </div>
+    </div>
+    <div class="checkout">
+      <div class="price">$2.99</div>
+      <div id="paypal-3" class="paypal-box"></div>
+      <div class="secure">Payments handled securely by PayPal</div>
+    </div>
   </div>
 
 </section>
 
 <footer>
-  © Demon Accounts · Payments handled securely by PayPal
+  © Demon Accounts · Digital goods marketplace
 </footer>
 
 <script>
@@ -157,7 +219,7 @@ function paypalButton(id, price, name){
     style:{
       layout:'vertical',
       color:'blue',
-      shape:'pill',
+      shape:'rect',
       label:'paypal'
     },
     createOrder:(data, actions)=>{
@@ -170,14 +232,14 @@ function paypalButton(id, price, name){
     },
     onApprove:(data, actions)=>{
       return actions.order.capture().then(details=>{
-        alert("Payment successful. Your order is being processed.");
+        alert("Payment successful. Your order will be delivered shortly.");
         sendWebhook(name, price, details.payer.email_address);
       });
     }
   }).render(id);
 }
 
-paypalButton('#paypal-1','6.55','Fortnite Account');
+paypalButton('#paypal-1','6.55','Fortnite Account – Pickaxe Bundle');
 paypalButton('#paypal-2','19.99','Valorant Account');
 paypalButton('#paypal-3','2.99','30+ Skin Account');
 
@@ -188,7 +250,7 @@ function sendWebhook(product, price, email){
     body:JSON.stringify({
       embeds:[{
         title:"New PayPal Order",
-        color:0x4f7cff,
+        color:0x2563eb,
         fields:[
           {name:"Product",value:product},
           {name:"Price",value:`$${price}`},
